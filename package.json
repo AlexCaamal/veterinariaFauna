@@ -1,0 +1,23 @@
+{
+  "name": "vetcares",
+  "version": "1.0.0",
+  "description": "Repository for COMP 20163 Web Development's Final Requirement: Veterinary Care and Appointment Management System",
+  "main": "index.js",
+  "scripts": {
+    "build-css": "tailwindcss build src/styles.css -o public/styles.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CorvusOps/VetCares.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CorvusOps/VetCares/issues"
+  },
+  "homepage": "https://github.com/CorvusOps/VetCares#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.2.4"
+  }
+}
