@@ -1,0 +1,15 @@
+</html>
+<?php
+    }else{
+		if($_SESSION['admin_sid']==session_id()){
+			header("location:404.php");
+		}
+		else{
+			if($_SESSION['staff_sid']==session_id()){
+				header("location:404.php");
+			}else{
+				header("location:login.php");
+			}
+		}
+	}
+?>
