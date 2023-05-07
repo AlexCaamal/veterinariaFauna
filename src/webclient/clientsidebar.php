@@ -17,6 +17,7 @@ if ($hora['hours'] >="18") {
          $fechaHoy =  date("Y-m-d");
     }else{
          $fechaHoy = date("Y-m-d",strtotime($fechaHoy."+ 1 days"));
+
     }
      
 }
