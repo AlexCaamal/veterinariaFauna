@@ -7,13 +7,7 @@ $veterinarian = $_POST['veterinario'];
 $idPet = $_POST['petID'];
 $peso = $_POST['peso'];
 $idUser = (int)$_GET['iduser'];
-
-
-
-
-
-
-  
+$idAppointment = (int)$_GET['AppointmentID'];
     
     $queryVeterinario ="SELECT user_firstname, user_lastname FROM users WHERE userID = $veterinarian";
      $result = mysqli_query($connectdb, $queryVeterinario);
@@ -27,10 +21,13 @@ $idUser = (int)$_GET['iduser'];
         mysqli_query($connectdb, $queryPets);
 
         
-        $queryRegistros ="INSERT INTO records (petID, serviceID, prescription, VetDoc) 
-        VALUES($idPet, $serviceID,'$prescription','$nombVete');";
+        $queryRegistros ="INSERT INTO records (petID, serviceID, prescription, VetDoc, idAppointment) 
+        VALUES($idPet, $serviceID,'$prescription','$nombVete', '$idAppointment');";
          mysqli_query($connectdb, $queryRegistros);
+         
         if($result){
+        $queryCita ="UPDATE appointments SET status = 'Finalizado' where appointmentID = '$idAppointment'";
+         mysqli_query($connectdb, $queryCita);
         echo "<script> 
         alert('Se registro Correctamente!!!'); 
         window.location = '../webstaff/records.php'; 

@@ -53,15 +53,6 @@ include '../includes/connectdb.php';
 
     </div>
     <table class=" m-auto md:mt-20 md:ml-56 md:mr-4 w-9/12 text-left border-collapse lg:ml-60">
-        <?php
-			date_default_timezone_set("America/Monterrey");
-		 	$date = date("Y-m-d");
-   	  $dateQuery = mysqli_query($connectdb,"SELECT a.appointmentID,a.date, h.Hora, a.servicesID, a.petID, p.pet_recordID,
-		 p.petName, s.servicesID, s.serviceName, a.status, a.petID FROM appointments AS a LEFT JOIN pet AS p ON a.petID=p.pet_recordID
-		 LEFT JOIN services AS s ON a.servicesID=s.servicesID left join horacitas as h on a.time  = h.idHora  WHERE date ='$date' AND status = 'Pendiente';");
-
-		  ?>
-
         <caption class="font-extrabold text-2xl">Citas para Hoy</caption>
         <tr class="bg-gray-100 border-b-2 border-gray-200 text-center p-2">
             <th class="w-1/5">No. de Cita</th>
@@ -71,19 +62,26 @@ include '../includes/connectdb.php';
             <th class="w-1/5">Nombre de Mascota</th>
 
         </tr>
-        <?php
-				while($row = $dateQuery->fetch_assoc()) {
-					echo'<tr class="text-center">';
-						echo'<td class="bg-white top-0 p-1">'.$row["appointmentID"].'</td>';
-						echo'<td class="bg-white top-0 p-1">'.$row["date"].'</td>';
-						echo'<td class="bg-white top-0 p-1">'.$row["Hora"].'</td>';
-						echo'<td class="bg-white top-0 p-1">'.$row["serviceName"].'</td>';
-						echo'<td class="bg-white top-0 p-1">'.$row["petName"].'</td>';
+        <tbody id="tableCitasHoy">
 
-				}
-					echo '</tr>';
-				 ?>
+        </tbody>
     </table>
+    <script type="text/javascript" src="../javascript/jquery.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+        refreshTableOrder();
+    });
+
+    function refreshTableOrder() {
+        $("#tableCitasHoy").load("listarCitas.php");
+    }
+
+    //refresh order current list every 3 secs
+    setInterval(function() {
+        refreshTableOrder();
+    }, 1500);
+    </script>
 </body>
 
 </html>

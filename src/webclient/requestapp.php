@@ -5,8 +5,6 @@ $fechacita = $_GET['date'];
 $mascota = $_GET['pet'];
 $contact = $_GET['contact'];
 date_default_timezone_set('America/Costa_Rica');
-$horaActual = date("h:i:s");
-$fechaHoy =   date("Y-m-d");
 $hora = getdate();
 $hora['hours'];
 
@@ -93,7 +91,7 @@ $hora['hours'];
                         Contacto</label><input type="text" required name="contact" placeholder="Número de Contacto"
                         maxlength="10"
                         class="border border-gray-400 px-4 py-2 rounded w-full focus:outline-none focus:border-teal-400"
-                        value="<?php  echo  $contact ;?>"></div>
+                        value="<?php  echo $contact;?>"></div>
             </div>
             <div class="w-1/2" style="margin:0px auto;"><label for="date" class="font-bold w-2">Fecha</label><input
                     id="infechaini" type="date" name="date" onChange="sinDomingos()" onblur="obtenerfechafinf1()"
@@ -113,7 +111,11 @@ $fechaHoy=date("Y-m-d");
     </div>
     </form>
     <form class="px-4 rounded mx-auto max-w-3xl w-full  inputs space-y-6" action="appointmentSub.php" method="post">
-        <?php if ($mascota == "" || ( $hora['hours'] >= "18"  && $fechacita==$fechaHoy)) {
+
+        <?php 
+        date_default_timezone_set("America/Costa_Rica");
+        $fechaHoy =   date("Y-m-d");
+        if ($mascota == "" || ( $hora['hours'] >= "18"  && $fechacita==$fechaHoy)) {
         ?>
         <?php if (( $hora['hours']  >= "18" && $fechacita==$fechaHoy)) {
         ?>
@@ -322,7 +324,7 @@ $result2=$connectdb->query($sql2);
 
         ?>
                     </select></div>
-                <div class="w-1/2"><label for="service" class="font-bold w-1/12">Servicio</label><select
+                <div class=" w-1/2"><label for="service" class="font-bold w-1/12">Servicio</label><select
                         class="border border-gray-400 px-4 py-2 rounded w-full focus:outline-none focus:border-teal-400"
                         name="service" required>
                         <option value="">--Selecciona Servicio--</option><?php $sql="SELECT servicesID, serviceName FROM services";
@@ -333,7 +335,8 @@ $result2=$connectdb->query($sql2);
         }
 
         ?>
-                    </select></div>
+                    </select>
+                </div>
             </div>
             <button type="submit" name="button1" class="mt-5 border-green-700 border-2 p-2 rounded-md">Confirmar
                 Cita</button>
