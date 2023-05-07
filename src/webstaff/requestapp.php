@@ -75,12 +75,13 @@ $hora['hours'];
                 class="border border-gray-400 px-4 py-2 rounded w-full focus:outline-none focus:border-teal-400">
 
         </div>
+        <br>
         <button type="submit" style="margin-left:45%; width: 60px; height: 60px;"
             class="block text-black hover:text-white bg-slate-400 hover:bg-gray-700 font-medium text-base p-1 w-10  text-center"
             type="button">
             <ion-icon name="search-outline"></ion-icon>
         </button>
-
+        <br>
         <?php
               if((isset($_GET['firstname'])) && (isset($_GET['lastname']))){
                 $Pnombre = $_GET['firstname'];
@@ -94,15 +95,18 @@ $hora['hours'];
                     if ($IDdueño!="") {
                       ?>
         <div style="display: flex; text-align:center;">
-            <p style="margin:0px auto;">
-                <input type="hidden" name="idUser" value="<?php echo $IDdueño; ?>"
-                    class="border border-gray-400 px-4 py-2 rounded w-full focus:outline-none focus:border-teal-400">
+            <input type="hidden" name="idUser" value="<?php echo $IDdueño; ?>"
+                class="border border-gray-400 px-4 py-2 rounded w-full focus:outline-none focus:border-teal-400">
+            <p
+                style="margin:0px auto; background-color: green; width: 50%; border-radius: 15%; font-size: 17px; padding:10px;">
+
                 <?php
                                echo "Datos Obtenidos Correctamente";
                           ?>
             </p>
-        </div>
 
+        </div>
+        <br>
         <div>
             <form class=" px-4 rounded mx-auto max-w-3xl w-full  inputs space-y-6" method="post"
                 action="requestapp.php?firstname=&lastname=&clase=CitaMascota&pet=pet&contact=contact&date=date">

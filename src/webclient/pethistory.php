@@ -3,14 +3,8 @@ include '../includes/connectdb.php';
 	if($_SESSION['client_sid']==session_id())
 	{
     $user = $_SESSION['user_id'];
-    $sql = "SELECT p.pet_recordID, r.petID, p.petName, r.serviceID, s.servicesID, s.serviceName, r.dateRecorded, r.prescription, r.VetDoc
-            FROM records AS r
-            LEFT JOIN services AS s ON r.serviceID=s.servicesID
-            LEFT JOIN pet AS p ON p.pet_recordID=r.petID
-            WHERE petUserID='$user'
-            ORDER BY dateRecorded DESC";
-    $result = $connectdb->query($sql);
-		?>
+   
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -19,6 +13,7 @@ include '../includes/connectdb.php';
     <meta charset="utf-8">
     <link rel="stylesheet" href="../../public/styles.css">
     <link rel="icon" href="../images/templogo.png">
+
     <title>Historial Clinico</title>
 </head>
 
@@ -27,7 +22,7 @@ include '../includes/connectdb.php';
     <?php include 'clientsidebar.php' ?>
 
     <div class="grid place-items-center pt-5">
-        <h1 class="font-extrabold text-3xl text-center text-blue-900">Historial Clinico</h1>
+        <h1 class="font-extrabold text-3xl text-center text-blue-900">Historial Clínico</h1>
     </div>
 
     <table class="m-auto md:mt-10 md:ml-56 md:mr-4 w-9/12 text-left border-collapse lg:ml-60 shadow-lg">
@@ -40,32 +35,32 @@ include '../includes/connectdb.php';
                 <th class="p-2">Fecha</th>
             </tr>
         </thead>
-        <tbody class="text-center">
-            <?php  
-            if ($result->num_rows > 0) {
-  
-              while($row = $result->fetch_assoc()) {
-                echo'<tr>';
-                  echo'<td class="bg-white top-0 p-1">'.$row["petName"].'</td>';
-                  echo'<td class="bg-white top-0 p-1">'.$row["serviceName"].'</td>'; 
-                  echo'<td class="bg-white top-0 p-1">'.$row["prescription"].'</td>'; 
-                  echo'<td class="bg-white top-0 p-1">'.$row["VetDoc"].'</td>'; 
-                  echo'<td class="bg-white top-0 p-1">'.$row["dateRecorded"].'</td>'; 
-              }           
-                echo '</tr>';      
-            ?>
+        <tbody id="tableRecords" class="text-center">
         </tbody>
     </table>
+
+    <script type="text/javascript" src="../javascript/jquery.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+        refreshTableOrder();
+    });
+
+    function refreshTableOrder() {
+        $("#tableRecords").load("listarRecords.php");
+    }
+
+    //refresh order current list every 3 secs
+    setInterval(function() {
+        refreshTableOrder();
+    }, 1500);
+    </script>
 
 </body>
 
 </html>
 <?php
-} else {
-  echo "<center>No se ha generado alguna Preinscripción.</center>";
-}
-    }else
-	{
+    }else{
 		if($_SESSION['admin_sid']==session_id()){
 			header("location:404.php");		
 		}

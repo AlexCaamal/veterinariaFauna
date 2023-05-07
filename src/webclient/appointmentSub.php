@@ -12,30 +12,42 @@ $status = "Pendiente";
 $success = "";
 
 $time2 = "";
-  
+$appointmenID = "";
 
   
   $sqlHora = "SELECT idHora FROM horacitas WHERE Hora = '$time'";
   $result = $connectdb->query($sqlHora);
     while($row = mysqli_fetch_array($result)) {
     $time2 = $row['idHora'];
-    }
+  }
+
+    $sqlHoraOcuped = "SELECT appointmentID FROM appointments WHERE time = '$time2' and date = '$date' and status ='Pendiente'";
+  $resultHora = $connectdb->query($sqlHoraOcuped);
+    while($row2 = mysqli_fetch_array($resultHora)) {
+    $appointmenID = $row2['appointmentID'];
+  }
 
 
-  $sql = "INSERT INTO appointments ( contact, email, date, status, time, petID, servicesID, userID)
+    if($appointmenID == ""){
+
+      $sql = "INSERT INTO appointments ( contact, email, date, status, time, petID, servicesID, userID)
   VALUES ('$contact','$email','$date','$status','$time2','$pet','$service','$user');";
-
-    if($results = $connectdb->query($sql)){
+  $results = $connectdb->query($sql);
       
           echo "<script>
       alert('Se Agrego correctamente');
       window.location = '../webclient/clientpanel.php';
       </script>";
       
+    }else if($appointmenID !=""){
+      echo "<script>
+      alert('Hora de cita ocupada. Verique de Nuevo');
+      window.location = '../webclient/clientpanel.php';
+      </script>";
     }else{
       echo "<script>
-      alert('$mysqli->error');
-      window.location = '../webclient/clientpanel.php';
+      alert('Hora de cita ocupada. Verique de Nuevo');
+     // window.location = '../webclient/clientpanel.php';
       </script>";
     }
 
